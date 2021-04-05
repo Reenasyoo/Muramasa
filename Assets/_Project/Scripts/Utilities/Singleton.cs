@@ -20,40 +20,39 @@ namespace Muramasa.Utilities
 
         #region Properties
 
-        [NotNull]
+        
         public static T Instance
         {
             get
             {
                 if (Quitting)
                 {
-                    Debug.LogWarning(
-                        $"[{nameof(Singleton)}<{typeof(T)}>] Instance will not be returned because the application is quitting.");
-                    // ReSharper disable once AssignNullToNotNullAttribute
+                    Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
+                                     "' already destroyed. Returning null.");
                     return null;
                 }
-
+ 
                 lock (Lock)
                 {
-                    if (_instance != null)
-                        return _instance;
-                    var instances = FindObjectsOfType<T>();
-                    var count = instances.Length;
-                    if (count > 0)
+                    if (_instance == null)
                     {
-                        if (count == 1)
-                            return _instance = instances[0];
-                        Debug.LogWarning(
-                            $"[{nameof(Singleton)}<{typeof(T)}>] There should never be more than one {nameof(Singleton)} of type {typeof(T)} in the scene, but {count} were found. The first instance found will be used, and all others will be destroyed.");
-                        for (var i = 1; i < instances.Length; i++)
-                            Destroy(instances[i]);
-                        return _instance = instances[0];
+                        // Search for existing instance.
+                        _instance = (T)FindObjectOfType(typeof(T));
+ 
+                        // Create new instance if one doesn't already exist.
+                        if (_instance == null)
+                        {
+                            // Need to create a new GameObject to attach the singleton to.
+                            var singletonObject = new GameObject();
+                            _instance = singletonObject.AddComponent<T>();
+                            singletonObject.name = typeof(T).ToString() + " (Singleton)";
+ 
+                            // Make instance persistent.
+                            DontDestroyOnLoad(singletonObject);
+                        }
                     }
-
-                    Debug.Log(
-                        $"[{nameof(Singleton)}<{typeof(T)}>] An instance is needed in the scene and no existing instances were found, so a new instance will be created.");
-                    return _instance = new GameObject($"({nameof(Singleton)}){typeof(T)}")
-                        .AddComponent<T>();
+ 
+                    return _instance;
                 }
             }
         }
@@ -87,6 +86,11 @@ namespace Muramasa.Utilities
         #region Methods
 
         private void OnApplicationQuit()
+        {
+            Quitting = true;
+        }
+        
+        private void OnDestroy()
         {
             Quitting = true;
         }

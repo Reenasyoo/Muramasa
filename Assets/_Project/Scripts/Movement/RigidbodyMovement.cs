@@ -23,8 +23,8 @@ namespace Muramasa.Movement
         private void FixedUpdate()
         {
             // Converts transform from local to world space
-            _targetVelocity = transform.TransformDirection(_velocityVector);
-            _rigidbody.velocity = _targetVelocity * (movementSpeed * Time.fixedDeltaTime);
+            // _targetVelocity = transform.TransformDirection(_velocityVector);
+            _rigidbody.velocity = _velocityVector * (movementSpeed * Time.fixedDeltaTime);
         }
 
         #region IInputVector
@@ -33,7 +33,7 @@ namespace Muramasa.Movement
         public void GetInputVector(Vector2 inputVector)
         {
             // _velocityVector = new Vector3(inputVector.x, _gravity.y, inputVector.y);
-            _velocityVector = new Vector3(inputVector.x,_rigidbody.velocity.y, inputVector.y);
+            _velocityVector = new Vector3(inputVector.x,_rigidbody.velocity.y , inputVector.y);
         }
 
         #endregion

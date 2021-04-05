@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 951838004944094233}
   - component: {fileID: 951838004944094239}
   - component: {fileID: 951838004944094238}
-  - component: {fileID: 951838004944094224}
   m_Layer: 0
   m_Name: PlayerContainer
   m_TagString: Untagged
@@ -33,7 +32,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.359, z: -0.138}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 9151342015728621860}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -139,18 +139,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bee5ea4ed3364522878889be00640c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &951838004944094224
-MonoBehaviour:
+--- !u!1 &6424139815145536829
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951838004944094232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f579b5c99674b529764faa12ae97683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpHeight: 10
-  jumpKey: 32
-  enableMassGravity: 1
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9151342015728621860}
+  m_Layer: 0
+  m_Name: Head Pivot Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9151342015728621860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424139815145536829}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 951838004944094237}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

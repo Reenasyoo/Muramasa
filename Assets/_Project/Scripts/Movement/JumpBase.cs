@@ -16,8 +16,8 @@ namespace Muramasa.Movement
 
         #region Private fields
 
-        protected Collider _collider;
-        protected GroundCheck _groundCheck;
+        private Collider _collider;
+        private GroundCheck _groundCheck;
         protected readonly Vector3 _gravity = Physics.gravity;
 
         #endregion
@@ -30,14 +30,11 @@ namespace Muramasa.Movement
             _groundCheck = new GroundCheck(_collider);
         }
 
-        private void Update()
+        protected void FixedUpdate()
         {
-            if (!IsGrounded)
-            {
-                IsGrounded = _groundCheck.CheckGrounded();
-            }
+            _groundCheck.DebugGrounded();
+            IsGrounded = _groundCheck.IsGrounded();
             
-            // TODO: Add different type input
             if (Input.GetKeyDown(jumpKey) && IsGrounded)
             {
                 Jump();
