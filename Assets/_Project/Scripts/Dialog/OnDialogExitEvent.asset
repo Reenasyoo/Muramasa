@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7abdf4a8c3d524e86872a2ac5572402f, type: 3}
-  m_Name: OnDialogRaisedEvent
+  m_Name: OnDialogExitEvent
   m_EditorClassIdentifier: 
-  dispatchMessage: 1
+  dispatchMessage: 0

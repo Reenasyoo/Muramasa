@@ -14,14 +14,6 @@ public class CanvasManager : Singleton<MonoBehaviour>
 
     private void Awake()
     {
-        _dialogCanvas.enabled = false;
+        _dialogCanvas.gameObject.SetActive(false);
     }
-
-
-    public void ShowDialog()
-    {
-        _dialogCanvas.enabled = true;
-    }
-    
-    
 }

@@ -410,7 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 360884774}
   m_Layer: 0
-  m_Name: Route
+  m_Name: Ped One Route
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,6 +480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae33952c035543b7950403215d515632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactionKey: 101
+  onDialogActivated: {fileID: 11400000, guid: a3c8d59e272b84b3389666bd3bfa43c7, type: 2}
 --- !u!114 &528731247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,6 +497,49 @@ MonoBehaviour:
   jumpKey: 32
   jumpSpeed: 2
   enableMassGravity: 1
+--- !u!114 &528731248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528731238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abeed057d3dc64db590e2ba9b280668b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listeners:
+  - GameEvent: {fileID: 11400000, guid: ee06b0456cf50d345b5a0507b55d8f84, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 528731239}
+          m_MethodName: CanInteractWithPed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - GameEvent: {fileID: 11400000, guid: 28d1cca4ceb7ed646a39317d1b76196f, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 528731239}
+          m_MethodName: StopInteractionWithPed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &628061584
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +587,7 @@ GameObject:
   - component: {fileID: 789104673}
   - component: {fileID: 789104671}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: First Ped
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -642,8 +687,8 @@ MonoBehaviour:
   - {fileID: 501549451}
   _moveOnStart: 1
   _doLoop: 1
-  onEnterPedTrigger: {fileID: 0}
-  onExitPedTrigger: {fileID: 0}
+  onEnterPedTrigger: {fileID: 11400000, guid: ee06b0456cf50d345b5a0507b55d8f84, type: 2}
+  onExitPedTrigger: {fileID: 11400000, guid: 28d1cca4ceb7ed646a39317d1b76196f, type: 2}
 --- !u!135 &789104672
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -913,7 +958,7 @@ PrefabInstance:
     - target: {fileID: 951838004944094239, guid: 1a8cf7f6d40fa40b6816a8fbf25e79f6,
         type: 3}
       propertyPath: movementSpeed
-      value: 10
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a8cf7f6d40fa40b6816a8fbf25e79f6, type: 3}

@@ -117,13 +117,17 @@ namespace Muramasa.NonPlayerCharacter
 
         private void OnTriggerEnter(Collider other)
         {
+            
+            
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
             if (ReferenceEquals(other.GetComponent<IActor>(), null)) return;
             
             StopCoroutine(startRouteCoroutine);
             LookAtTarget(other.transform.position);
-            // onEnterPedTrigger.Raise();
-
-
+            onEnterPedTrigger.Raise();
         }
 
         private void OnTriggerExit(Collider other)
@@ -132,7 +136,7 @@ namespace Muramasa.NonPlayerCharacter
             
             StartRoute();
             LookAtTarget(_currentTargetPoint);
-            // onExitPedTrigger.Raise();
+            onExitPedTrigger.Raise();
         }
 
 
