@@ -16,7 +16,7 @@ namespace Muramasa.Movement
             _collider = collider;
             // _distanceToGround = _collider.bounds.extents.y;
             _distanceToGround = 0.5f;
-            Debug.Log(_distanceToGround);
+            // Debug.Log(_distanceToGround);
             
         }
 
@@ -29,18 +29,5 @@ namespace Muramasa.Movement
         {
             Debug.DrawRay(_origin, GLOBALS._DownDirection, Color.red);
         }
-
-
-
-        // private void aaa()
-        // {
-        //     var vector2 = new Vector2(playerBox.transform.position.x, playerBox.transform.position.y + 1f);
-        //     
-        //     bool grounded = (Physics.Raycast(vector2, Vector3.down, 2f, 1 << LayerMask.NameToLayer("Ground")));
-        //     
-        //     var vector3 = new Vector3(playerBox.transform.position.x, playerBox.transform.position.y + 1f, playerBox.transform.position.z);
-        //     
-        //     Debug.DrawRay(vector3, Vector3.down, Color.green, 5);
-        // }
     }
 }

@@ -5,7 +5,6 @@ namespace Muramasa.Movement
 {
     public abstract class JumpBase : MonoBehaviour, IGroundable
     {
-        [SerializeField] protected float jumpHeight;
         [SerializeField] protected KeyCode jumpKey = KeyCode.Space;
 
         #region Properties
@@ -18,7 +17,6 @@ namespace Muramasa.Movement
 
         private Collider _collider;
         private GroundCheck _groundCheck;
-        protected readonly Vector3 _gravity = Physics.gravity;
 
         #endregion
 
@@ -42,6 +40,5 @@ namespace Muramasa.Movement
         }
 
         protected abstract void Jump();
-
     }
 }

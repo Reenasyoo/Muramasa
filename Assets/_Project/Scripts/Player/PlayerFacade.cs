@@ -1,14 +1,9 @@
 using UnityEngine;
 
-namespace Muramasa.Utilities.Player
+namespace Muramasa.Player
 {
-    public class PlayerFacade : MonoBehaviour
+    public class PlayerFacade : MonoBehaviour, IActor
     {
-        
-        
-        private void Awake()
-        {
-            // _rigidbody = GetComponent<Rigidbody>();
-        }
+
     }
 }
