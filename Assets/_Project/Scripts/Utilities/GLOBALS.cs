@@ -14,5 +14,9 @@ namespace Muramasa.Utilities
         public const float FLOAT_TOLERANCE = 0.000000001f;
         
         public static readonly Vector3 Gravity = Physics.gravity;
+        
+        
+        public static readonly int FORWARD_VELOCITY = Animator.StringToHash("ForwardVelocity");
+        public static readonly int ATTACK_ANIMATION = Animator.StringToHash("Attack");
     }
 }

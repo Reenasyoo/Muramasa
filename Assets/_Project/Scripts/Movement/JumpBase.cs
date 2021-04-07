@@ -32,7 +32,10 @@ namespace Muramasa.Movement
         {
             _groundCheck.DebugGrounded();
             IsGrounded = _groundCheck.IsGrounded();
-            
+        }
+
+        private void Update()
+        {
             if (Input.GetKeyDown(jumpKey) && IsGrounded)
             {
                 Jump();

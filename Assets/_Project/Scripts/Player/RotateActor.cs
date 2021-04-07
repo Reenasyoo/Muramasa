@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class RotateActor
 {
-    [SerializeField] private float rotationSpeed;
+    private float _rotationSpeed = 5f;
 
     private Transform _actorTransform;
     private Transform _mainCameraTransform;
 
-    public RotateActor(Transform actor)
+    public RotateActor(Transform actor, float rotationSpeed = 5f)
     {
         _actorTransform = actor;
         _mainCameraTransform = CameraManager.Instance.BrainTransform;
+        _rotationSpeed = rotationSpeed;
     }
 
 
@@ -46,7 +47,7 @@ public class RotateActor
         // If current camera distane is less than deadzone exit method
         // if (!(distance > characterFolowRotationDeadzone)) return;
 
-        var rotationTarget = Quaternion.Lerp(rotation, cameraRotation, Time.deltaTime * rotationSpeed);
+        var rotationTarget = Quaternion.Lerp(rotation, cameraRotation, Time.deltaTime * _rotationSpeed);
 
         // Remove x and z rotations so character would only rotate in one axes
         rotationTarget.x = 0;

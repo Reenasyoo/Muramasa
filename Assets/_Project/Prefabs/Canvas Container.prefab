@@ -875,7 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _persistent: 0
   _dialogCanvas: {fileID: 5990317721603216304}
-  _gameCanvas: {fileID: 0}
+  _gameCanvas: {fileID: 5990317720453415291}
 --- !u!114 &5990317720975581395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -893,9 +893,24 @@ MonoBehaviour:
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5990317720975581389}
-          m_MethodName: ShowDialog
-          m_Mode: 1
+        - m_Target: {fileID: 5990317721603216300}
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - GameEvent: {fileID: 11400000, guid: 28d1cca4ceb7ed646a39317d1b76196f, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5990317721764222943}
+          m_MethodName: SetActive
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -904,11 +919,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - GameEvent: {fileID: 11400000, guid: 28d1cca4ceb7ed646a39317d1b76196f, type: 2}
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5990317721764222943}
+        - m_Target: {fileID: 5990317721603216300}
           m_MethodName: SetActive
           m_Mode: 6
           m_Arguments:
@@ -933,6 +944,21 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 1
+          m_CallState: 2
+  - GameEvent: {fileID: 11400000, guid: 6f57cfd8b38e2b548baf15e42df7ca8f, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5990317721603216300}
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &5990317721020542229
 GameObject:
