@@ -11,6 +11,7 @@ namespace Muramasa.Player
         private Animator _animatorController;
 
         private float attackTime;
+        private bool _attackCoroutineEnded = false;
 
         private void Awake()
         {
@@ -48,6 +49,13 @@ namespace Muramasa.Player
             StartCoroutine(AnimatorSetAttack(attackEnded));
         }
         
+        public void PlayAttack(out bool attackEnded)
+        {
+            // _animatorController.Play(GLOBALS.ATTACK_ANIMATION);
+            StartCoroutine(AnimatorSetAttack());
+            attackEnded = _attackCoroutineEnded;
+        }
+        
         private IEnumerator AnimatorSetAttack(RigidbodyMovement attackEnded)
         {
             _animatorController.Play(GLOBALS.ATTACK_ANIMATION);
@@ -55,6 +63,15 @@ namespace Muramasa.Player
             yield return new WaitForSeconds(attackTime);
 
             attackEnded.CanMove = true;
+        }
+        
+        private IEnumerator AnimatorSetAttack()
+        {
+            _attackCoroutineEnded = false;
+            _animatorController.Play(GLOBALS.ATTACK_ANIMATION);
+
+            yield return new WaitForSeconds(attackTime);
+            _attackCoroutineEnded = true;
         }
     }
 }

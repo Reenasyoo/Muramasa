@@ -7,6 +7,12 @@ namespace Muramasa.Player
 {
     public class PlayerFacade : MonoBehaviour, IActor
     {
+        #region Properties
+
+        public int Health { get; private set; } = 100;
+
+        #endregion
+
         [SerializeField] private Transform _headPivotPoint;
         [SerializeField] private Transform _swordPivotPoint;
         [SerializeField] private ActorAnimationController _animationController;
@@ -23,7 +29,7 @@ namespace Muramasa.Player
         [SerializeField] private GameEvent onDialogActivated = null;
         
         private bool _canInteract = false;
-        
+
 
         private void Awake()
         {
@@ -70,6 +76,11 @@ namespace Muramasa.Player
             {
                 PickupSword(other.gameObject);
             }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
         }
     }
 }

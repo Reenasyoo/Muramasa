@@ -12,16 +12,15 @@ namespace Muramasa.NonPlayerCharacter
     {
         #region Fields
 
-        [SerializeField] private EntitySettings _settings;
-        [SerializeField] private ActorAnimationController _animationController;
+        [SerializeField] protected EntitySettings _settings;
+        [SerializeField] protected ActorAnimationController _animationController;
 
         [SerializeField] private Transform[] _targetPoints;
 
         [SerializeField] private bool _moveOnStart = false;
         [SerializeField] private bool _doLoop;
 
-        [SerializeField] private GameEvent onEnterPedTrigger;
-        [SerializeField] private GameEvent onExitPedTrigger;
+
 
         private Transform _transform;
 
@@ -30,14 +29,14 @@ namespace Muramasa.NonPlayerCharacter
 
         private int _targetIndex = 0;
 
-        private bool _isMoving;
-        private bool _hasTarget;
+        protected bool _isMoving;
+        protected bool _hasTarget;
 
         #endregion
 
         #region Awake
 
-        private void Awake()
+        protected void Awake()
         {
             _transform = transform;
 
@@ -58,7 +57,7 @@ namespace Muramasa.NonPlayerCharacter
             }
         }
 
-        private void Update()
+        protected void Update()
         {
             if (CheckEndDistance(_currentTargetPoint))
             {
@@ -72,37 +71,37 @@ namespace Muramasa.NonPlayerCharacter
 
         #endregion
 
-        private void StartRoute()
+        protected void StartRoute()
         {
             SetTargetPosition(_targetIndex);
             LookAtTarget(_currentTargetPoint);
             _hasTarget = true;
         }
 
-        private void SetTargetPosition(Transform targetPos)
+        protected void SetTargetPosition(Transform targetPos)
         {
             _currentTargetPoint = targetPos.position;
             _hasTarget = true;
         }
 
-        private void SetTargetPosition(int index)
+        protected void SetTargetPosition(int index)
         {
-            if (_moveTargets.Count < index) return;
+            if (_moveTargets.Count <= index) return;
 
             _currentTargetPoint = _moveTargets[index];
             _hasTarget = true;
         }
 
-        private void MovePed(Vector3 endPoint, float moveSpeed)
+        protected void MovePed(Vector3 endPoint, float moveSpeed)
         {
-            if (endPoint.Equals(GLOBALS._ZeroVector)) return;
+            if (endPoint.Equals(GLOBALS._ZeroVector) || ReferenceEquals(endPoint, null)) return;
             if (!_hasTarget) return;
             
             _isMoving = true;
             
             if (!ReferenceEquals(_animationController, null))
             {
-                _animationController.SetForwardVelocity(1);    
+                _animationController.SetForwardVelocity(0.5f);    
             }
             
             var slerp = moveSpeed * Time.deltaTime;
@@ -111,6 +110,7 @@ namespace Muramasa.NonPlayerCharacter
 
         private void NextDestination()
         {
+            if (_moveTargets.Count <= 0) return;
             if (_moveTargets.Count > _targetIndex + 1)
             {
                 _targetIndex++;
@@ -123,33 +123,14 @@ namespace Muramasa.NonPlayerCharacter
             StartRoute();
         }
 
-        private void LookAtTarget(Vector3 target) => _transform.LookAt(target);
+        protected void LookAtTarget(Vector3 target) => _transform.LookAt(target);
 
-        private bool CheckEndDistance(Vector3 endPoint) => Vector3.Distance(_transform.position, endPoint) <= 0.01f;
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (ReferenceEquals(other.GetComponent<IActor>(), null)) return;
-
-            _hasTarget = false;
-            LookAtTarget(other.transform.position);
-            onEnterPedTrigger.Raise();
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (ReferenceEquals(other.GetComponent<IActor>(), null)) return;
-
-            StartRoute();
-            onExitPedTrigger.Raise();
-        }
-
+        protected bool CheckEndDistance(Vector3 endPoint, float distance = 0.01f) => Vector3.Distance(_transform.position, endPoint) <= distance;
 
         #region Reset
 
         private void Reset()
         {
-            Debug.Log("Reset");
             _hasTarget = false;
             _isMoving = false;
 
