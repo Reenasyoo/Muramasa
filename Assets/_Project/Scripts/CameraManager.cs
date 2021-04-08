@@ -9,10 +9,10 @@ public class CameraManager : Singleton<CameraManager>
     #region Properties
 
     protected CameraManager() {}
-    
+
     public Transform BrainTransform => _brain.transform;
 
-    #endregion
+        #endregion
 
     #region Fields
     

@@ -13,7 +13,8 @@ namespace Muramasa.NonPlayerCharacter
         #region Fields
 
         [SerializeField] private EntitySettings _settings;
-        
+        [SerializeField] private ActorAnimationController _animationController;
+
         [SerializeField] private Transform[] _targetPoints;
 
         [SerializeField] private bool _moveOnStart = false;
@@ -31,9 +32,7 @@ namespace Muramasa.NonPlayerCharacter
 
         private bool _isMoving;
         private bool _hasTarget;
-        
-        private Coroutine startRouteCoroutine;
-        
+
         #endregion
 
         #region Awake
@@ -42,20 +41,33 @@ namespace Muramasa.NonPlayerCharacter
         {
             _transform = transform;
 
-            foreach (var point in _targetPoints)
+            if (_targetPoints.Length > 1 )
             {
-                // if (_moveTargets.Contains(point.position)) break;
+                foreach (var point in _targetPoints)
+                {
+                    if (point != null)
+                    {
+                        _moveTargets.Add(point.position);    
+                    }
+                }
+
+                if (_moveTargets.Count <= 0) return;
                 
-                _moveTargets.Add(point.position);
+                if (CheckEndDistance(_moveTargets[0]) && _moveTargets.Count > 0) _targetIndex = 1;
+                if (_moveOnStart) StartRoute();
             }
+        }
 
-            if (Vector3.Distance(_transform.position, _moveTargets[0]) <= 0.01f
-                && _moveTargets.Count > 0)
+        private void Update()
+        {
+            if (CheckEndDistance(_currentTargetPoint))
             {
-                _targetIndex = 1;
+                Reset();
             }
-
-            if (_moveOnStart) StartRoute();
+            else
+            {
+                MovePed(_currentTargetPoint, _settings.movementSpeed);
+            }
         }
 
         #endregion
@@ -63,7 +75,8 @@ namespace Muramasa.NonPlayerCharacter
         private void StartRoute()
         {
             SetTargetPosition(_targetIndex);
-            startRouteCoroutine = StartCoroutine(MovePed(_currentTargetPoint, _settings.movementSpeed));
+            LookAtTarget(_currentTargetPoint);
+            _hasTarget = true;
         }
 
         private void SetTargetPosition(Transform targetPos)
@@ -80,22 +93,20 @@ namespace Muramasa.NonPlayerCharacter
             _hasTarget = true;
         }
 
-        private IEnumerator MovePed(Vector3 endPos, float time)
+        private void MovePed(Vector3 endPoint, float moveSpeed)
         {
-            if (endPos.Equals(GLOBALS._ZeroVector)) yield break;
-            if ( !_hasTarget) yield break;
-
+            if (endPoint.Equals(GLOBALS._ZeroVector)) return;
+            if (!_hasTarget) return;
+            
             _isMoving = true;
-            var i = 0.0f;
-            var rate = 1.0f / time;
-            while (i < 1.0f && _hasTarget)
+            
+            if (!ReferenceEquals(_animationController, null))
             {
-                i += Time.deltaTime * rate;
-                _transform.position = Vector3.Lerp(_transform.position, new Vector3(endPos.x, _transform.position.y, endPos.z), i);
-                yield return null;
+                _animationController.SetForwardVelocity(1);    
             }
-
-            Reset();
+            
+            var slerp = moveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, endPoint, slerp);
         }
 
         private void NextDestination()
@@ -108,24 +119,19 @@ namespace Muramasa.NonPlayerCharacter
             {
                 _targetIndex = 0;
             }
-            
+
             StartRoute();
         }
 
-        private void LookAtTarget(Vector3 target) =>_transform.LookAt(target);
-        
+        private void LookAtTarget(Vector3 target) => _transform.LookAt(target);
 
-        private void OnTriggerEnter(Collider other)
-        {
-            
-            
-        }
+        private bool CheckEndDistance(Vector3 endPoint) => Vector3.Distance(_transform.position, endPoint) <= 0.01f;
 
         private void OnTriggerStay(Collider other)
         {
             if (ReferenceEquals(other.GetComponent<IActor>(), null)) return;
-            
-            StopCoroutine(startRouteCoroutine);
+
+            _hasTarget = false;
             LookAtTarget(other.transform.position);
             onEnterPedTrigger.Raise();
         }
@@ -133,9 +139,8 @@ namespace Muramasa.NonPlayerCharacter
         private void OnTriggerExit(Collider other)
         {
             if (ReferenceEquals(other.GetComponent<IActor>(), null)) return;
-            
+
             StartRoute();
-            LookAtTarget(_currentTargetPoint);
             onExitPedTrigger.Raise();
         }
 
@@ -144,11 +149,12 @@ namespace Muramasa.NonPlayerCharacter
 
         private void Reset()
         {
+            Debug.Log("Reset");
             _hasTarget = false;
             _isMoving = false;
 
             if (!_doLoop) return;
-            
+
             NextDestination();
         }
 
