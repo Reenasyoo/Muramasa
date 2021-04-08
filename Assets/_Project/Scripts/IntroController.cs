@@ -29,4 +29,9 @@ public class IntroController : MonoBehaviour
             yield return null;
         }
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
