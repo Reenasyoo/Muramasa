@@ -876,6 +876,9 @@ MonoBehaviour:
   _persistent: 0
   _dialogCanvas: {fileID: 5990317721603216304}
   _gameCanvas: {fileID: 5990317720453415291}
+  _playerHealthSlider: {fileID: 5990317722143609387}
+  firstDialogText: Here, take sword and go kill monster in the far part of town
+  secondDialogText: Nice job! Go explore until next quest
 --- !u!114 &5990317720975581395
 MonoBehaviour:
   m_ObjectHideFlags: 0

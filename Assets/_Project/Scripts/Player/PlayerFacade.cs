@@ -1,6 +1,7 @@
 using System;
 using Systems;
 using Muramasa.Movement;
+using Muramasa.Utilities;
 using UnityEngine;
 
 namespace Muramasa.Player
@@ -33,10 +34,12 @@ namespace Muramasa.Player
 
         private void Awake()
         {
+            CanvasManager.ChangeHealth(Health);
             CameraManager.Instance.CreateFirstPersonCamera(_headPivotPoint);
             
             _rigidbodyMovement = GetComponent<RigidbodyMovement>();
             _rotateActor = new RotateActor(transform);
+            
         }
 
 
@@ -64,6 +67,8 @@ namespace Muramasa.Player
             
             // Add sword to hand
             sword.transform.parent = _swordPivotPoint;
+            sword.transform.localPosition = GLOBALS._ZeroVector;
+            sword.transform.localRotation = GLOBALS._ZeroRotation;
         }
         
         public void CanInteractWithPed() =>_canInteract = true;
@@ -81,6 +86,7 @@ namespace Muramasa.Player
         public void TakeDamage(int damage)
         {
             Health -= damage;
+            CanvasManager.ChangeHealth(Health);
         }
     }
 }

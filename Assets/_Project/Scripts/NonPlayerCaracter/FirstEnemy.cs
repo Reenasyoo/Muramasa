@@ -28,8 +28,10 @@ namespace Muramasa.NonPlayerCharacter
                 {
                     Attack();
                 }
-                else if( _isMoving )
+                else if(_isMoving)
                 {
+                    _isAttacking = false;
+                    _sword.CanDoDamage = false;
                     var position = _enemyTransform.position;
                     LookAtTarget(position);
                     MovePed(position, _settings.movementSpeed);
@@ -44,15 +46,17 @@ namespace Muramasa.NonPlayerCharacter
             
             _enemyTransform = other.gameObject.transform;
             SetTargetPosition(_enemyTransform);
+            _isMoving = true;
             _hasEnemy = true;
         }
 
         private void Attack()
         {
-            _animationController.PlayAttack(out var moving);
+            _animationController.PlayAttack(out var attackEnded);
             _isAttacking = true;
             _sword.CanDoDamage = true;
-            _isMoving = moving;
+            _isMoving = attackEnded;
+            _isAttacking = attackEnded;
         }
 
         public void TakeDamage(int damage) => Health -= damage;

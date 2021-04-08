@@ -11,6 +11,8 @@ namespace Muramasa.Utilities
         public static readonly Vector3 _UpDirection = new Vector3(0, 1, 0);
         public static readonly Vector3 _ZeroVector = new Vector3(0, 0, 0);
 
+        public static readonly Quaternion _ZeroRotation = Quaternion.identity;
+
         public const float FLOAT_TOLERANCE = 0.000000001f;
         
         public static readonly Vector3 Gravity = Physics.gravity;
