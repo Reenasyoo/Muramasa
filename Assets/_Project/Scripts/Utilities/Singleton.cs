@@ -1,5 +1,3 @@
-using System;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Muramasa.Utilities
@@ -8,19 +6,15 @@ namespace Muramasa.Utilities
     {
         #region Fields
 
-        [CanBeNull] private static T _instance;
-
-        [NotNull]
-        // ReSharper disable once StaticMemberInGenericType
-        private static readonly object Lock = new object();
-
         [SerializeField] private bool _persistent = true;
+        
+        private static T _instance;
+        private static readonly object Lock = new object();
 
         #endregion
 
         #region Properties
 
-        
         public static T Instance
         {
             get
@@ -68,10 +62,8 @@ namespace Muramasa.Utilities
             OnAwake();
         }
 
-        protected virtual void OnAwake()
-        {
-        }
-
+        protected virtual void OnAwake() { }
+        
         #endregion
     }
 
@@ -85,15 +77,9 @@ namespace Muramasa.Utilities
 
         #region Methods
 
-        private void OnApplicationQuit()
-        {
-            Quitting = true;
-        }
+        private void OnApplicationQuit() => Quitting = true;
         
-        private void OnDestroy()
-        {
-            Quitting = true;
-        }
+        private void OnDestroy() => Quitting = true;
 
         #endregion
     }

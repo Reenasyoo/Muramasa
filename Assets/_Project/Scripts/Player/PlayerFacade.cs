@@ -36,7 +36,7 @@ namespace Muramasa.Player
 
         private void Update()
         {
-            _rotateActor.RotateCharacterFowardToCamera();
+            _rotateActor.RotateCharacterForwardToCamera();
             _animationController.SetForwardVelocity(_rigidbodyMovement.ForwardVelocity);
             
             
@@ -54,12 +54,16 @@ namespace Muramasa.Player
 
         private void PickupSword(GameObject sword)
         {
+            if(ReferenceEquals(_swordPivotPoint, null)) return;
+            
+            // Add sword to hand
             sword.transform.parent = _swordPivotPoint;
         }
         
         public void CanInteractWithPed() =>_canInteract = true;
         public void StopInteractionWithPed() => _canInteract = false;
 
+        
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Sword"))

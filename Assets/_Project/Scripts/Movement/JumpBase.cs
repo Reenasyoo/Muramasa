@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Muramasa.Movement
 {
-    public abstract class JumpBase : MonoBehaviour, IGroundable
+    public abstract class JumpBase : MonoBehaviour
     {
         [SerializeField] protected KeyCode jumpKey = KeyCode.Space;
 
@@ -13,7 +13,7 @@ namespace Muramasa.Movement
 
         #endregion
 
-        #region Private fields
+        #region Fields
 
         private Collider _collider;
         private GroundCheck _groundCheck;
@@ -25,6 +25,7 @@ namespace Muramasa.Movement
             _collider = GetComponent<Collider>();
 
             if (ReferenceEquals(_collider, null)) return;
+            
             _groundCheck = new GroundCheck(_collider);
         }
 

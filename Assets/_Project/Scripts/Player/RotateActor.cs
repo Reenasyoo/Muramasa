@@ -5,47 +5,33 @@ using UnityEngine;
 
 public class RotateActor
 {
-    private float _rotationSpeed = 5f;
+    #region Fields
+    
+    private readonly Transform _actorTransform;
+    private readonly Transform _mainCameraTransform;
+    private readonly float _rotationSpeed;
 
-    private Transform _actorTransform;
-    private Transform _mainCameraTransform;
+    #endregion
+
 
     public RotateActor(Transform actor, float rotationSpeed = 5f)
     {
         _actorTransform = actor;
-        _mainCameraTransform = CameraManager.Instance.BrainTransform;
+        
         _rotationSpeed = rotationSpeed;
+        
+        if(ReferenceEquals(CameraManager.Instance.BrainTransform, null)) return;
+        
+        _mainCameraTransform = CameraManager.Instance.BrainTransform;
     }
 
 
     #region Rotation
 
-    public void RotateCharacterFowardToCamera()
+    public void RotateCharacterForwardToCamera()
     {
         var rotation = _actorTransform.rotation;
         var cameraRotation = _mainCameraTransform.rotation;
-
-        // var distance = 0f;
-        // var direction = 0;
-        // if (!myApproximation(rotation.y, cameraRotation.y, 0.1f))
-        // {
-        //     if (rotation.y > cameraRotation.y)
-        //     {
-        //         distance = rotation.y - cameraRotation.y;
-        //         direction = 0;
-        //     }
-        //     else if ( rotation.y < cameraRotation.y)
-        //     {
-        //         distance = cameraRotation.y - rotation.y;
-        //         direction = 2;
-        //     }
-        // }
-        // else
-        // {
-        //     direction = 1;
-        // }
-        // If current camera distane is less than deadzone exit method
-        // if (!(distance > characterFolowRotationDeadzone)) return;
 
         var rotationTarget = Quaternion.Lerp(rotation, cameraRotation, Time.deltaTime * _rotationSpeed);
 
@@ -58,6 +44,4 @@ public class RotateActor
     }
 
     #endregion
-
-    private bool Approximation(float a, float b, float tolerance) => (Mathf.Abs(a - b) < tolerance);
 }

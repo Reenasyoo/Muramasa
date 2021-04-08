@@ -15,7 +15,7 @@ public class CameraManager : Singleton<CameraManager>
     #endregion
 
     #region Fields
-
+    
     [SerializeField] private CinemachineBrain _brain = null;
     
     [SerializeField] private CinemachineVirtualCameraBase _firstPersonCamera = null;
@@ -27,17 +27,21 @@ public class CameraManager : Singleton<CameraManager>
     protected override void OnAwake()
     {
         base.OnAwake();
-        // _firstPersonCamera.Priority = 0;
-
     }
 
     public void CreateFirstPersonCamera(Transform target)
     {
+        if (ReferenceEquals(_firstPersonCamera, null)) return;
+        
+        // Set FPS cameras follow value to target, in this case set it to player
         _firstPersonCamera.Follow = target;
     }
     
     public void CreateThirdPersonCamera(Transform target)
     {
+        if (ReferenceEquals(_thirdPersonCamera, null)) return;
+        
+        // Set Third Person Camera Follow and LookAt to target
         _thirdPersonCamera.Follow = target;
         _thirdPersonCamera.LookAt = target;
     }

@@ -9,11 +9,7 @@ namespace Muramasa.Movement
         #region Properties
 
         public float ForwardVelocity => _velocityVector.z;
-        public bool CanMove
-        {
-            get => _canMove;
-            set => _canMove = value;
-        } 
+        public bool CanMove { get; set; } = true;
 
         #endregion
         
@@ -25,8 +21,6 @@ namespace Muramasa.Movement
         private Vector3 _velocityVector;
         private Vector3 _targetVelocity;
 
-        private bool _canMove = true;
-        
         #endregion
 
         private void Awake()
@@ -36,26 +30,23 @@ namespace Muramasa.Movement
 
         private void FixedUpdate()
         {
-            // Converts transform from local to world space
-            
-            if (_canMove)
+            if (CanMove)
             {
+                // Converts transform from local to world space
                 _targetVelocity = transform.TransformDirection(_velocityVector);
-                _targetVelocity = _targetVelocity * (movementSpeed * Time.fixedDeltaTime);
+                // Add movement speed to target velocity + delta time
+                _targetVelocity *= (movementSpeed * Time.fixedDeltaTime);
+                // Remove y velocity so we dont disrupt any other applied gravitys
                 _targetVelocity.y = _rigidbody.velocity.y;
+                // Apply our target velocity to RigidBody velocity
                 _rigidbody.velocity = _targetVelocity;
             }
-            
         }
 
         #region IInputVector
 
         // Get Horizontal and Vertical inputs
-        public void GetInputVector(Vector2 inputVector)
-        {
-            _velocityVector = new Vector3(inputVector.x, 0, inputVector.y);
-            // _velocityVector = new Vector3(inputVector.x, _rigidbody.velocity.y , inputVector.y);
-        }
+        public void GetInputVector(Vector2 inputVector) => _velocityVector = new Vector3(inputVector.x, 0, inputVector.y);
 
         #endregion
     }

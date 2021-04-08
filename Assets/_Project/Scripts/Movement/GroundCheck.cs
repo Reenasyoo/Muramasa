@@ -9,7 +9,7 @@ namespace Muramasa.Movement
         private readonly Collider _collider;
         private readonly float _distanceToGround;
         private const float _RADIUS = 0.2f;
-        private Vector3 _origin => _collider.transform.position - (GLOBALS._UpDirection * _distanceToGround);
+        private Vector3 Origin => _collider.transform.position - (GLOBALS._UpDirection * _distanceToGround);
 
         public GroundCheck(Collider collider)
         {
@@ -22,12 +22,12 @@ namespace Muramasa.Movement
 
         public bool IsGrounded()
         {
-            return Physics.SphereCast(_origin, _RADIUS, GLOBALS._DownDirection, out var raycastHit, _distanceToGround);   
+            return Physics.SphereCast(Origin, _RADIUS, GLOBALS._DownDirection, out var raycastHit, _distanceToGround);   
         }
 
         public void DebugGrounded()
         {
-            Debug.DrawRay(_origin, GLOBALS._DownDirection, Color.red);
+            Debug.DrawRay(Origin, GLOBALS._DownDirection, Color.red);
         }
     }
 }
