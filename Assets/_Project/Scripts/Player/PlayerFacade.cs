@@ -21,6 +21,7 @@ namespace Muramasa.Player
 
         private RigidbodyMovement _rigidbodyMovement; // TODO: Should make interface form velocity change detection
         private RotateActor _rotateActor;
+        private WeaponMono _sword;
         
         [Header("Keys")]
         [SerializeField] private KeyCode _interactionKey = KeyCode.E;
@@ -39,15 +40,12 @@ namespace Muramasa.Player
             
             _rigidbodyMovement = GetComponent<RigidbodyMovement>();
             _rotateActor = new RotateActor(transform);
-            
         }
-
-
+        
         private void Update()
         {
             _rotateActor.RotateCharacterForwardToCamera();
             _animationController.SetForwardVelocity(_rigidbodyMovement.ForwardVelocity);
-            
             
             if (_canInteract && Input.GetKeyDown(_interactionKey))
             {
@@ -57,6 +55,7 @@ namespace Muramasa.Player
             if (Input.GetKeyDown(_attackKey))
             {
                 _rigidbodyMovement.CanMove = false;
+                if(!ReferenceEquals(_sword,null)) _sword.CanDoDamage = true;
                 _animationController.PlayAttack(_rigidbodyMovement);
             }
         }
@@ -64,6 +63,8 @@ namespace Muramasa.Player
         private void PickupSword(GameObject sword)
         {
             if(ReferenceEquals(_swordPivotPoint, null)) return;
+            sword.GetComponent<RotateObject>().enabled = false;
+            _sword = sword.GetComponent<WeaponMono>();
             
             // Add sword to hand
             sword.transform.parent = _swordPivotPoint;

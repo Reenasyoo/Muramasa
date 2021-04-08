@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 618742931103398249}
   - component: {fileID: 8105108451531812002}
   - component: {fileID: 2213314491216742547}
+  - component: {fileID: 2384007936635007157}
+  - component: {fileID: 5658334685194588509}
   m_Layer: 0
   m_Name: pCube4
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,6 +113,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 30
+--- !u!114 &2384007936635007157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6559423833717942285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00306457e42f54e27a5d9bb449fdc175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 6559423833717942285}
+  _rotationSpeed: 40
+--- !u!135 &5658334685194588509
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6559423833717942285}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.021801807
+  m_Center: {x: -0.0000001831213, y: 0.00000086799264, z: -9.313226e-10}
 --- !u!1 &7692824593623979293
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +150,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6946868410873287794}
   - component: {fileID: 8019462602816138244}
-  - component: {fileID: 5779261729209159225}
   m_Layer: 0
   m_Name: Katana
   m_TagString: Sword
@@ -157,17 +185,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.021801807
   m_Center: {x: -0.0000001831213, y: 0.00000086799264, z: -9.313226e-10}
---- !u!114 &5779261729209159225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7692824593623979293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00306457e42f54e27a5d9bb449fdc175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _target: {fileID: 6559423833717942285}
-  _rotationSpeed: 40

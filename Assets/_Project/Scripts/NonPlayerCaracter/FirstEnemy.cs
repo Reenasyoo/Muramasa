@@ -1,12 +1,13 @@
 using System;
 using Muramasa.Player;
+using Muramasa.Utilities;
 using UnityEngine;
 
 namespace Muramasa.NonPlayerCharacter
 {
     public class FirstEnemy : NonPlayerCharacterBase, IActor
     {
-        public int Health { get; private set; }
+        public int Health { get; private set; } = 100;
 
         [SerializeField] private WeaponMono _sword;
         
@@ -38,6 +39,12 @@ namespace Muramasa.NonPlayerCharacter
                 }
             }
             if(!_hasEnemy) base.Update();
+
+            if (Health <= 0)
+            {
+                gameObject.SetActive(false);
+                GameManager.Instance.EnemyKilled = true;
+            }
         }
         
         private void OnTriggerEnter(Collider other)
