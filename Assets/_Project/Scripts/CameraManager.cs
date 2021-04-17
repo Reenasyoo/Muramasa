@@ -39,11 +39,11 @@ public class CameraManager : Singleton<CameraManager>
     
     public void CreateThirdPersonCamera(Transform target)
     {
-        if (ReferenceEquals(_thirdPersonCamera, null)) return;
-        
-        // Set Third Person Camera Follow and LookAt to target
-        _thirdPersonCamera.Follow = target;
-        _thirdPersonCamera.LookAt = target;
+        // if (ReferenceEquals(_thirdPersonCamera, null)) return;
+        //
+        // // Set Third Person Camera Follow and LookAt to target
+        // _thirdPersonCamera.Follow = target;
+        // _thirdPersonCamera.LookAt = target;
     }
     
 }
